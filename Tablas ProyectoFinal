@@ -1,0 +1,410 @@
+% ============================================================
+% TABLAS EXCEL EN LATEX — FACTORES Y ESTILOS DE INVERSIÓN
+% Apple Inc. (AAPL) | CAPM vs. Fama-French 3F | 2019-2024
+% ============================================================
+% Para compilar: pdflatex tablas_excel.tex
+% ============================================================
+\documentclass[12pt, letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{lmodern}
+\usepackage{tcolorbox}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\definecolor{navy}{HTML}{1C3557}
+\definecolor{blue}{HTML}{2E75B6}
+\definecolor{lblue}{HTML}{D6E4F0}
+\definecolor{lgray}{HTML}{F2F2F2}
+\definecolor{lgreen}{HTML}{E2EFDA}
+\definecolor{lyellow}{HTML}{FFF2CC}
+\definecolor{red}{HTML}{C00000}
+\definecolor{dgray}{HTML}{595959}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+\renewcommand{\arraystretch}{1.35}
+\setlength{\parskip}{8pt}
+\setlength{\parindent}{0pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{blue} Tablas de Análisis de Factores --- AAPL}
+\fancyhead[R]{\small\color{blue} CAPM vs.\ Fama-French 3F}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\tcbuselibrary{skins}
+\newtcolorbox{notabox}{
+  enhanced, colback=lyellow, colframe=navy,
+  boxrule=0.5pt, leftrule=4pt, arc=2pt,
+  left=8pt, right=8pt, top=4pt, bottom=4pt,
+  fontupper=\small\itshape\color{navy}
+}
+
+\begin{document}
+
+% ── TÍTULO ───────────────────────────────────────────────────
+\begin{center}
+  {\color{navy}\rule{\linewidth}{2pt}}\\[0.3cm]
+  {\LARGE\bfseries\color{navy} Análisis de Factores de Inversión}\\[0.2cm]
+  {\large\color{blue} Apple Inc.\ (AAPL) $\mid$ CAPM vs.\ Fama-French 3F $\mid$ 2019--2024}\\[0.2cm]
+  {\color{navy}\rule{\linewidth}{0.5pt}}
+\end{center}
+
+\vspace{0.5cm}
+
+% ============================================================
+% HOJA 1 — DATOS MENSUALES (muestra)
+% ============================================================
+\section*{\color{navy} Hoja 1: Datos Mensuales (muestra)}
+
+\begin{table}[H]
+  \centering
+  \caption*{\textbf{Datos Mensuales --- AAPL \& Factores Fama-French $\mid$ Feb 2019 -- Dic 2024}}
+  \small
+  \begin{tabular}{lrrrrrrr}
+    \toprule
+    \rowcolor{navy}
+    \textcolor{white}{\textbf{Fecha}} &
+    \textcolor{white}{\textbf{Precio}} &
+    \textcolor{white}{\textbf{AAPL (\%)}} &
+    \textcolor{white}{\textbf{Mkt-RF (\%)}} &
+    \textcolor{white}{\textbf{SMB (\%)}} &
+    \textcolor{white}{\textbf{HML (\%)}} &
+    \textcolor{white}{\textbf{RF (\%)}} &
+    \textcolor{white}{\textbf{AAPL exc.}} \\
+    \midrule
+    \rowcolor{lgray} Feb-19 & 40.57 & $-$2\% & 3.41\% & 0.72\% &  2.40\% & 0.18\% & $-$0.20\% \\
+    Mar-19 & 44.55 & 10\%  & 1.73\% & $-$2.09\% & $-$2.34\% & 0.19\% & $-$0.09\% \\
+    \rowcolor{lgray} Abr-19 & 46.26 & 4\%   & 3.96\% &  0.77\% &  1.97\% & 0.21\% & $-$0.17\% \\
+    May-19 & 40.14 & $-$13\% & $-$6.58\% & $-$3.77\% & 1.24\% & 0.21\% & $-$0.34\% \\
+    \rowcolor{lgray} Jun-19 & 44.59 & 11\%  & 7.26\% & $-$0.90\% & $-$2.67\% & 0.18\% & $-$0.07\% \\
+    $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ \\
+    \rowcolor{lgray} Oct-24 & 147.83 & $-$1\% & $-$1.34\% & 3.37\% & 5.43\% & 0.39\% & $-$0.06\% \\
+    Nov-24 & 154.54 & 5\%   &  5.94\% &  3.24\% &  0.11\% & 0.38\% &  0.05\% \\
+    \rowcolor{lgray} Dic-24 & 150.00 & $-$3\% & $-$2.59\% & $-$1.72\% & $-$0.66\% & 0.36\% & $-$0.03\% \\
+    \midrule
+    \rowcolor{lblue}
+    \textbf{Media} & --- & \textbf{2.21\%} & \textbf{1.46\%} & \textbf{$-$0.29\%} & \textbf{0.08\%} & \textbf{0.20\%} & --- \\
+    \rowcolor{lblue}
+    \textbf{Desv. Est.} & --- & \textbf{8.40\%} & \textbf{5.23\%} & \textbf{2.72\%} & \textbf{3.84\%} & \textbf{0.18\%} & --- \\
+    \bottomrule
+  \end{tabular}
+  \vspace{4pt}\\
+  \footnotesize\textit{Nota: Se muestran los primeros 5 y últimos 3 meses del periodo. Total: 71 observaciones.
+  Fuente: Yahoo Finance y Kenneth French Data Library.}
+\end{table}
+
+\vspace{0.3cm}
+
+% ============================================================
+% HOJA 2 — MODELO CAPM
+% ============================================================
+\section*{\color{navy} Hoja 2: Modelo CAPM}
+
+\begin{center}
+  \colorbox{navy}{\parbox{\linewidth}{\centering\color{white}\bfseries\large
+    MODELO CAPM --- Capital Asset Pricing Model $\mid$ AAPL 2019--2024}}\\[2pt]
+  \colorbox{blue}{\parbox{\linewidth}{\centering\color{white}
+    Ecuación: $AAPL_{exc} = \alpha + \beta \cdot (Mkt\text{-}RF) + \varepsilon$
+    $\quad|\quad$ Errores robustos HC3}}
+\end{center}
+
+\vspace{0.3cm}
+
+\noindent\textbf{\color{navy} TABLA DE COEFICIENTES}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lrrrrC{2cm}}
+    \toprule
+    \rowcolor{blue}
+    \textcolor{white}{\textbf{Coeficiente}} &
+    \textcolor{white}{\textbf{Estimado}} &
+    \textcolor{white}{\textbf{Error Std.}} &
+    \textcolor{white}{\textbf{$t$-estadístico}} &
+    \textcolor{white}{\textbf{$p$-valor}} &
+    \textcolor{white}{\textbf{Sig.}} \\
+    \midrule
+    \rowcolor{lgray}
+    $\alpha$ (Alfa)        & 0.0003  & 0.0051 &  0.0592 & 0.9530 & \\
+    $\beta$ (Beta mercado) & 1.4192  & 0.0950 & 14.9378 & 0.0000 & \textcolor{red}{***} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent\textbf{\color{navy} MÉTRICAS DE AJUSTE}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{L{6cm} R{4cm}}
+    \toprule
+    \rowcolor{blue}
+    \textcolor{white}{\textbf{Métrica}} & \textcolor{white}{\textbf{Valor}} \\
+    \midrule
+    \rowcolor{lgray} $R^2$            & 0.7638 \\
+    $R^2$ Ajustado                    & 0.7565 \\
+    \rowcolor{lgray} $F$-estadístico  & 223.1379 \\
+    $p$-valor ($F$)                   & 0.0000 \\
+    \rowcolor{lgray} AIC              & $-$450.40 \\
+    BIC                               & $-$445.88 \\
+    \rowcolor{lgray} Observaciones    & 71 \\
+    Periodo                           & Feb 2019 $\to$ Dic 2024 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent\textbf{\color{navy} INTERVALOS DE CONFIANZA 95\%}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lrrrr}
+    \toprule
+    \rowcolor{blue}
+    \textcolor{white}{\textbf{Coeficiente}} &
+    \textcolor{white}{\textbf{Estimado}} &
+    \textcolor{white}{\textbf{LI 95\%}} &
+    \textcolor{white}{\textbf{LS 95\%}} &
+    \textcolor{white}{\textbf{Amplitud}} \\
+    \midrule
+    \rowcolor{lgray}
+    $\alpha$ (Alfa)        & 0.0003  & $-$0.0098 & 0.0104 & 0.0201 \\
+    $\beta$ (Beta mercado) & 1.4192  &    1.2310 & 1.6075 & 0.3765 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent\textbf{\color{navy} INTERPRETACIÓN}
+
+\begin{tcolorbox}[colback=lgreen, colframe=navy, boxrule=0.4pt, arc=2pt]
+  \small
+  \begin{itemize}
+    \item El mercado explica el \textbf{76.4\%} de la varianza mensual de AAPL ($R^2 = 0.7638$).
+    \item $\beta = 1.4192^{***}$: AAPL amplifica los movimientos del mercado. Por cada 1\% de subida del mercado, AAPL sube $\approx$1.42\%.
+    \item $\alpha = 0.0003\%$ (no significativo): no hay retorno anormal robusto más allá del riesgo de mercado.
+    \item El CAPM deja sin explicar $\approx$23.6\% de la varianza de AAPL.
+  \end{itemize}
+\end{tcolorbox}
+
+\newpage
+
+% ============================================================
+% HOJA 3 — FAMA-FRENCH 3F
+% ============================================================
+\section*{\color{navy} Hoja 3: Modelo Fama-French de Tres Factores}
+
+\begin{center}
+  \colorbox{navy}{\parbox{\linewidth}{\centering\color{white}\bfseries\large
+    MODELO FAMA-FRENCH 3 FACTORES $\mid$ AAPL 2019--2024}}\\[2pt]
+  \colorbox{blue}{\parbox{\linewidth}{\centering\color{white}
+    Ecuación: $AAPL_{exc} = \alpha + b_1 \cdot (Mkt\text{-}RF) + b_2 \cdot SMB + b_3 \cdot HML + \varepsilon$
+    $\quad|\quad$ Errores robustos HC3}}
+\end{center}
+
+\vspace{0.3cm}
+
+\noindent\textbf{\color{navy} TABLA DE COEFICIENTES}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lrrrrC{2cm}}
+    \toprule
+    \rowcolor{blue}
+    \textcolor{white}{\textbf{Coeficiente}} &
+    \textcolor{white}{\textbf{Estimado}} &
+    \textcolor{white}{\textbf{Error Std.}} &
+    \textcolor{white}{\textbf{$t$-estadístico}} &
+    \textcolor{white}{\textbf{$p$-valor}} &
+    \textcolor{white}{\textbf{Sig.}} \\
+    \midrule
+    \rowcolor{lgray}
+    $\alpha$ (Alfa)          & $-$0.0004 & 0.0049 & $-$0.1650 & 0.8690 & \\
+    $b_1$ (Beta mercado)     &    1.4594 & 0.0952 &   12.6730 & 0.0000 & \textcolor{red}{***} \\
+    \rowcolor{lgray}
+    $b_2$ (SMB --- Tamaño)   & $-$0.0022 & 0.0023 & $-$0.4980 & 0.6187 & \\
+    $b_3$ (HML --- Valor)    & $-$0.0029 & 0.0015 & $-$1.8650 & 0.0622 & \textcolor{red}{*} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent\textbf{\color{navy} MÉTRICAS DE AJUSTE}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{L{7cm} R{4cm}}
+    \toprule
+    \rowcolor{blue}
+    \textcolor{white}{\textbf{Métrica}} & \textcolor{white}{\textbf{Valor}} \\
+    \midrule
+    \rowcolor{lgray} $R^2$                           & 0.7815 \\
+    $R^2$ Ajustado                                   & 0.7878 \\
+    \rowcolor{lgray} $F$-estadístico                 & 87.6003 \\
+    $p$-valor ($F$)                                  & 0.0000 \\
+    \rowcolor{lgray} AIC                             & $-$457.10 \\
+    BIC                                              & $-$448.05 \\
+    \rowcolor{lgray} Test $F$ incremental (SMB+HML)  & $F = 4.155$, $p = 0.0198$ \checkmark \\
+    Observaciones                                    & 71 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent\textbf{\color{navy} INTERVALOS DE CONFIANZA 95\%}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lrrrr}
+    \toprule
+    \rowcolor{blue}
+    \textcolor{white}{\textbf{Coeficiente}} &
+    \textcolor{white}{\textbf{Estimado}} &
+    \textcolor{white}{\textbf{LI 95\%}} &
+    \textcolor{white}{\textbf{LS 95\%}} &
+    \textcolor{white}{\textbf{Amplitud}} \\
+    \midrule
+    \rowcolor{lgray}
+    $\alpha$ (Alfa)        & $-$0.0004 & $-$1.1015 & 0.8575 & 1.8726 \\
+    $b_1$ (Beta mercado)   &    1.4594 &    1.1961 & 1.6338 & 0.4377 \\
+    \rowcolor{lgray}
+    $b_2$ (SMB)            & $-$0.0022 & $-$0.6433 & 0.3827 & 1.0260 \\
+    $b_3$ (HML)            & $-$0.0029 & $-$0.6077 & 0.0151 & 0.6228 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent\textbf{\color{navy} INTERPRETACIÓN DE FACTORES}
+
+\begin{tcolorbox}[colback=lgreen, colframe=navy, boxrule=0.4pt, arc=2pt]
+  \small
+  \begin{itemize}
+    \item $b_1 = 1.4594^{***}$: AAPL amplifica el mercado. Por cada 1\% que sube el mercado, AAPL sube $\approx$1.46\%.
+    \item $b_2 = -0.0022$ (n.s.): Carga negativa $\to$ comportamiento large-cap. No significativo al 5\%.
+    \item $b_3 = -0.0029^{*}$: Carga negativa $\to$ perfil \textit{growth} (P/B alto). Marginalmente significativo ($p \approx 0.06$).
+    \item $\alpha = -0.0004\%$ (n.s.): No hay retorno anormal. Los 3 factores explican bien el retorno de AAPL.
+    \item $R^2 = 78.2\%$ vs 76.4\% CAPM: +1.7 pp. AIC y BIC confirman que FF3 es mejor modelo.
+  \end{itemize}
+\end{tcolorbox}
+
+\newpage
+
+% ============================================================
+% HOJA 4 — COMPARACIÓN
+% ============================================================
+\section*{\color{navy} Hoja 4: Comparación CAPM vs.\ Fama-French 3F}
+
+\begin{center}
+  \colorbox{navy}{\parbox{\linewidth}{\centering\color{white}\bfseries\large
+    COMPARACIÓN --- CAPM PURO vs.\ FAMA-FRENCH 3 FACTORES}}
+\end{center}
+
+\vspace{0.3cm}
+
+\begin{table}[H]
+  \centering
+  \caption*{\textbf{Tabla Comparativa Completa}}
+  \begin{tabular}{L{5.5cm} C{2.5cm} C{2.5cm} C{3cm}}
+    \toprule
+    \rowcolor{navy}
+    \textcolor{white}{\textbf{Métrica / Parámetro}} &
+    \textcolor{white}{\textbf{CAPM}} &
+    \textcolor{white}{\textbf{FF3}} &
+    \textcolor{white}{\textbf{$\Delta$ / Nota}} \\
+    \midrule
+    \rowcolor{blue}
+    \multicolumn{4}{l}{\textcolor{white}{\textbf{--- COEFICIENTES ---}}} \\
+    \rowcolor{lgray}
+    $\alpha$ Alfa (\% mensual)   & 0.0003       & $-$0.0004    & Ambos no sig. \\
+    $\beta/b_1$ Beta mercado     & 1.4192***    & 1.4594***    & +0.040 \\
+    \rowcolor{lgray}
+    $b_2$ SMB (tamaño)           & ---          & $-$0.0022    & Large-cap, no sig. \\
+    $b_3$ HML (valor)            & ---          & $-$0.0029*   & \textit{Growth}, marg. sig. \\
+    \midrule
+    \rowcolor{blue}
+    \multicolumn{4}{l}{\textcolor{white}{\textbf{--- BONDAD DE AJUSTE ---}}} \\
+    \rowcolor{lgray}
+    $R^2$                        & 76.38\%      & 78.15\%      & +1.77 pp \\
+    $R^2$ Ajustado               & 75.65\%      & 78.78\%      & +3.13 pp \\
+    \rowcolor{lgray}
+    AIC (menor $=$ mejor)        & $-$450.40    & $-$457.10    & FF3 mejor \\
+    BIC (menor $=$ mejor)        & $-$445.88    & $-$448.05    & FF3 mejor \\
+    \midrule
+    \rowcolor{blue}
+    \multicolumn{4}{l}{\textcolor{white}{\textbf{--- DIAGNÓSTICOS ---}}} \\
+    \rowcolor{lgray}
+    Jarque-Bera ($p$-valor)      & 0.3708 \checkmark & 0.6650 \checkmark & Normales \\
+    Durbin-Watson                & 1.7315 \checkmark & 1.7982 \checkmark & Sin autocorr. \\
+    \midrule
+    \rowcolor{blue}
+    \multicolumn{4}{l}{\textcolor{white}{\textbf{--- PERFIL DEL ACTIVO ---}}} \\
+    \rowcolor{lgray}
+    Sensibilidad al mercado      & Alta ($\beta>1$) & Alta ($b_1>1$) & Consistente \\
+    Estilo tamaño                & N/D           & Large-cap ($b_2<0$) & Solo en FF3 \\
+    \rowcolor{lgray}
+    Estilo valor/\textit{growth} & N/D           & \textit{Growth} ($b_3<0$) & Solo en FF3 \\
+    \bottomrule
+  \end{tabular}
+  \vspace{4pt}\\
+  \footnotesize\textit{Nota: *** $p<0.01$, * $p<0.10$. \checkmark indica ausencia de problemas. pp = puntos porcentuales.}
+\end{table}
+
+\vspace{0.5cm}
+
+\noindent\textbf{\color{navy} TEST F INCREMENTAL --- ¿Agregan valor SMB y HML?}
+
+\begin{table}[H]
+  \centering
+  \colorbox{lblue}{\parbox{0.95\linewidth}{\centering\vspace{4pt}
+    $H_0: b_2 = b_3 = 0$ \quad (los factores adicionales no aportan poder explicativo)
+    \vspace{4pt}}}
+  \vspace{4pt}
+
+  \begin{tabular}{L{6cm} R{4cm}}
+    \toprule
+    \rowcolor{blue}
+    \textcolor{white}{\textbf{Estadístico}} & \textcolor{white}{\textbf{Valor}} \\
+    \midrule
+    \rowcolor{lgray}
+    $F$-estadístico incremental  & 4.1549 \\
+    Grados de libertad           & $F(2,\; 67)$ \\
+    \rowcolor{lgray}
+    $p$-valor                    & 0.0198 \\
+    Decisión al 5\%              & \textbf{\checkmark RECHAZAR $H_0$} --- SMB y HML SÍ aportan \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\vspace{0.3cm}
+
+\begin{notabox}
+  \textbf{Conclusión:} AAPL puede describirse como una acción de alta exposición al mercado ($\beta \approx 1.46$),
+  con perfil large-cap ($b_2 < 0$) y orientación \textit{growth} ($b_3 < 0$).
+  El modelo FF3 mejora la descripción del activo respecto al CAPM, confirmando que AAPL tiene
+  exposiciones sistemáticas identificables más allá del riesgo de mercado puro.
+  El alfa no es significativo en ningún modelo.
+\end{notabox}
+
+\vspace{1cm}
+
+\begin{center}
+  {\color{navy}\rule{\linewidth}{0.5pt}}\\[0.2cm]
+  \footnotesize\color{dgray}
+  Fuentes: Yahoo Finance (precios AAPL) $\cdot$ Kenneth French Data Library (factores FF3)\\
+  Periodo: Febrero 2019 -- Diciembre 2024 $\cdot$ 71 observaciones mensuales
+\end{center}
+
+\end{document}
